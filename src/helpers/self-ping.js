@@ -1,4 +1,4 @@
-import { NODE_ENV, TELEGRAM_BOT_BASE_URL } from "../config/config";
+import { NODE_ENV, TELEGRAM_BOT_BASE_URL } from "../config/config.js";
 
 export function startSelfPing() {
   if (NODE_ENV !== "production") return;
