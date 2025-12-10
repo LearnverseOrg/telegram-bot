@@ -10,6 +10,7 @@ const BOT_USERNAME = process.env.BOT_USERNAME;
 const LEARNVERSE_BASE_URL = process.env.LEARNVERSE_BASE_URL;
 const LEARNVERSE_API_BASE_URL = process.env.LEARNVERSE_API_BASE_URL;
 const NODE_ENV = process.env.NODE_ENV || "development";
+const TELEGRAM_BOT_BASE_URL = process.env.TELEGRAM_BOT_BASE_URL;
 
 export {
   PORT,
@@ -19,4 +20,5 @@ export {
   LEARNVERSE_BASE_URL,
   LEARNVERSE_API_BASE_URL,
   NODE_ENV,
+  TELEGRAM_BOT_BASE_URL,
 };
