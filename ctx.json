@@ -1,0 +1,141 @@
+{
+  "update": {
+    "update_id": 135192253,
+    "message": {
+      "message_id": 335,
+      "from": {
+        "id": 2146754191,
+        "is_bot": false,
+        "first_name": "Parth",
+        "username": "parthsali",
+        "language_code": "en"
+      },
+      "chat": {
+        "id": 2146754191,
+        "first_name": "Parth",
+        "username": "parthsali",
+        "type": "private"
+      },
+      "date": 1765366449,
+      "text": "hello"
+    }
+  },
+  "telegram": {
+    "token": "7859563605:AAE3CBgJX7oi5aP1ypOPzH4IscOo5UOqel0",
+    "options": {
+      "apiRoot": "https://api.telegram.org",
+      "apiMode": "bot",
+      "webhookReply": true,
+      "agent": {
+        "_events": {},
+        "_eventsCount": 2,
+        "options": {
+          "keepAlive": true,
+          "keepAliveMsecs": 10000,
+          "defaultPort": 443,
+          "protocol": "https:",
+          "noDelay": true,
+          "path": null
+        },
+        "defaultPort": 443,
+        "protocol": "https:",
+        "requests": {},
+        "sockets": {},
+        "freeSockets": {
+          "api.telegram.org:443:::::::::::::::::::::": [
+            {
+              "_tlsOptions": {
+                "pipe": false,
+                "secureContext": { "context": {} },
+                "isServer": false,
+                "requestCert": true,
+                "rejectUnauthorized": true
+              },
+              "_secureEstablished": true,
+              "_securePending": false,
+              "_newSessionPending": false,
+              "_controlReleased": true,
+              "secureConnecting": false,
+              "_SNICallback": null,
+              "servername": "api.telegram.org",
+              "alpnProtocol": false,
+              "authorized": true,
+              "authorizationError": null,
+              "encrypted": true,
+              "_events": {
+                "close": [null, null, null],
+                "newListener": [null, null]
+              },
+              "_eventsCount": 9,
+              "connecting": false,
+              "_hadError": false,
+              "_parent": null,
+              "_host": "api.telegram.org",
+              "_closeAfterHandlingError": false,
+              "_readableState": {
+                "highWaterMark": 65536,
+                "buffer": [],
+                "bufferIndex": 0,
+                "length": 0,
+                "pipes": [],
+                "awaitDrainWriters": null
+              },
+              "_writableState": {
+                "highWaterMark": 65536,
+                "length": 0,
+                "corked": 0,
+                "writelen": 0,
+                "bufferedIndex": 0,
+                "pendingcb": 0
+              },
+              "allowHalfOpen": false,
+              "_sockname": null,
+              "_pendingData": null,
+              "_pendingEncoding": "",
+              "_server": null,
+              "ssl": null,
+              "_requestCert": true,
+              "_rejectUnauthorized": true,
+              "parser": null,
+              "_httpMessage": null,
+              "autoSelectFamilyAttemptedAddresses": [
+                "2001:67c:4e8:f004::9:443",
+                "149.154.167.220:443"
+              ],
+              "handle": {
+                "_parent": { "reading": true, "onconnection": null },
+                "_parentWrap": null,
+                "_secureContext": { "context": {} },
+                "reading": true
+              },
+              "timeout": 0
+            }
+          ]
+        },
+        "keepAliveMsecs": 10000,
+        "keepAlive": true,
+        "maxSockets": null,
+        "maxFreeSockets": 256,
+        "scheduling": "lifo",
+        "maxTotalSockets": null,
+        "totalSocketCount": 1,
+        "agentKeepAliveTimeoutBuffer": 1000,
+        "maxCachedSessions": 100,
+        "_sessionCache": { "map": {}, "list": [] }
+      },
+      "testEnv": false
+    }
+  },
+  "botInfo": {
+    "id": 7859563605,
+    "is_bot": true,
+    "first_name": "LearnVerseBot",
+    "username": "LearnVerseBot",
+    "can_join_groups": true,
+    "can_read_all_group_messages": true,
+    "supports_inline_queries": false,
+    "can_connect_to_business": false,
+    "has_main_web_app": false
+  },
+  "state": {}
+}
