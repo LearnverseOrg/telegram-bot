@@ -11,6 +11,11 @@ app.get("/", (req, res) => {
 app.use(cors());
 app.use(express.json());
 
+bot
+  .launch()
+  .then(() => console.log("Bot started successfully"))
+  .catch((err) => console.error("Bot launch failed:", err));
+
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
