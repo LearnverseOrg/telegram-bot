@@ -1,0 +1,104 @@
+name: Sync org → personal repo (exclude .github)
+
+# Trigger on every push (all branches)
+on:
+  push:
+    branches:
+      - "**"
+
+env:
+  TARGET_OWNER: forrealdeveloper
+  TARGET_REPO: learnverse-telegram-bot
+  # Set MIRROR_ALL: 'true' if you want to mirror all refs & tags (destructive)
+  MIRROR_ALL: "false"
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Determine current branch
+        id: vars
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_REF}" =~ ^refs/heads/ ]]; then
+            BRANCH="${GITHUB_REF#refs/heads/}"
+          else
+            BRANCH="${GITHUB_HEAD_REF:-main}"
+          fi
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Find working remote URL for personal repo
+        id: find-url
+        env:
+          TOKEN: ${{ secrets.PERSONAL_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          TARGET="${{ env.TARGET_OWNER }}/${{ env.TARGET_REPO }}.git"
+
+          FORMATS=(
+            "https://${{ env.TARGET_OWNER }}:${TOKEN}@github.com/${TARGET}"
+            "https://x-access-token:${TOKEN}@github.com/${TARGET}"
+          )
+
+          for url in "${FORMATS[@]}"; do
+            if git ls-remote "$url" >/dev/null 2>&1; then
+              echo "remote_url=$url" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+
+          echo "ERROR: token cannot access https://github.com/${{ env.TARGET_OWNER }}/${{ env.TARGET_REPO }}" >&2
+          exit 1
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Push branch to personal repo (excluding .github)
+        env:
+          REMOTE_URL: ${{ steps.find-url.outputs.remote_url }}
+          BRANCH: ${{ steps.vars.outputs.branch }}
+        run: |
+          set -euo pipefail
+          git remote add personal "$REMOTE_URL"
+
+          # Create a temporary branch from HEAD
+          TMP_BRANCH="sync-tmp-${BRANCH}-no-github"
+          git checkout -b "$TMP_BRANCH"
+
+          # Remove .github from index only (do not delete from source repo)
+          git rm -r --cached .github || true
+
+          # Commit only if there are staged changes
+          if git diff --cached --quiet; then
+            echo "No .github files to remove from index; still pushing HEAD (no change)."
+          else
+            git commit -m "Exclude .github directory from sync"
+          fi
+
+          # Force-push the sanitized branch to the target branch on personal repo
+          echo "Pushing sanitized branch ($TMP_BRANCH → ${BRANCH})..."
+          git push personal "$TMP_BRANCH:refs/heads/${BRANCH}" --force
+
+          # Also push tags (non-fatal)
+          git push personal --tags --force || true
+
+      - name: Cleanup temporary branch
+        if: always()
+        run: |
+          ORIGINAL_BRANCH="${{ steps.vars.outputs.branch }}"
+          git checkout -f "$ORIGINAL_BRANCH" || true
+          git branch -D "sync-tmp-${ORIGINAL_BRANCH}-no-github" || true
+
+      - name: Done
+        run: echo "Sync finished (excluded .github)."
