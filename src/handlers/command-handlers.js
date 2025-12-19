@@ -8,7 +8,7 @@ export const startCommandHandler = async (ctx) => {
     `• 📁 Files & Study Materials\n` +
     `• 📚 Syllabuses & PDFs\n` +
     `• 📝 Notes & Resources\n\n` +
-    `Use /search to find and download files!\n` +
+    `Use /search to find links to files!\n` +
     `Use /help to see all available commands.`;
 
   await ctx.reply(welcomeMessage, { parse_mode: "Markdown" });
@@ -23,7 +23,7 @@ export const helpCommandHandler = async (ctx) => {
     `🤖 *Learnverse Bot Help*\n\n` +
     `I am here to help you access study materials, notes, and syllabuses easily.\n\n` +
     `*Available Commands:*\n` +
-    `/search - 🔍 Find file, syllabus & notes\n` +
+    `/search - 🔍 Find file, syllabus & notes links\n` +
     `/help - ℹ️ Show this help message\n` +
     `/start - 🔄 Restart the bot session\n\n` +
     `_Select /search to browse materials by Branch > Year > Subject_`;

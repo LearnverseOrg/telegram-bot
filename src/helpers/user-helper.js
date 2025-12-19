@@ -15,11 +15,11 @@ export const createUserIfNotExists = async (ctx) => {
   }
 
   const user = {
-    chatId: ctx.update.message.chat.id,
-    firstName: ctx.update.message.from.first_name,
-    lastName: ctx.update.message.from.last_name,
-    username: ctx.update.message.from.username,
-    language_code: ctx.update.message.from.language_code,
+    chatId: ctx.chat?.id,
+    firstName: ctx.from?.first_name,
+    lastName: ctx.from?.last_name,
+    username: ctx.from?.username,
+    language_code: ctx.from?.language_code,
   };
 
   const newUser = await createUser(user);

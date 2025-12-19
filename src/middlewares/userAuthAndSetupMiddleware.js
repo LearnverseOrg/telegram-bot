@@ -10,22 +10,11 @@ import logger from "../helpers/logger.js";
 import fs from "fs";
 
 export const userAuthAndSetupMiddleware = async (ctx, next) => {
-  // Skip middleware for callback queries (inline button clicks)
-  // Callback queries don't have message context and are already authenticated
-  if (ctx.updateType === "callback_query") {
-    logger.debug("Skipping middleware for callback query");
-    return next();
-  }
-
-  // Only validate for messages and commands
-  if (!ctx.update.message) {
-    // Skip for other update types (edited messages, etc.)
-    return next();
-  }
-
   // reject if the user is a bot
   if (isBot(ctx)) {
-    ctx.reply("You are a bot, bots are not allowed");
+    if (isPrivateChat(ctx)) {
+      await ctx.reply("You are a bot, bots are not allowed");
+    }
     return;
   }
 
