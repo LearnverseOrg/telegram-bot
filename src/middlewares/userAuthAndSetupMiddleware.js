@@ -7,7 +7,6 @@ import {
 import { createUserIfNotExists } from "../helpers/user-helper.js";
 import { BOT_USERNAME } from "../config/config.js";
 import logger from "../helpers/logger.js";
-import fs from "fs";
 
 export const userAuthAndSetupMiddleware = async (ctx, next) => {
   // reject if the user is a bot
@@ -30,7 +29,7 @@ export const userAuthAndSetupMiddleware = async (ctx, next) => {
 
 export const checkGroupChatMiddleware = async (ctx, next) => {
   // save ctx in json file
-  fs.writeFileSync("ctx.json", JSON.stringify(ctx));
+
   if (checkGroupChat(ctx) && checkIfNewUser(ctx)) {
     const privateChatLink = `https://t.me/${BOT_USERNAME}`;
     const message = `Welcome to the group! For any study materials, you can use our bot directly: <a href="${privateChatLink}">Start Private Chat with Learnerse Bot</a>`;
