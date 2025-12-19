@@ -12,11 +12,15 @@ import {
 } from "../handlers/command-handlers.js";
 
 import { commands } from "../config/constants.js";
-import { userAuthAndSetupMiddleware } from "../middlewares/userAuthAndSetupMiddleware.js";
+import {
+  checkGroupChatMiddleware,
+  userAuthAndSetupMiddleware,
+} from "../middlewares/userAuthAndSetupMiddleware.js";
 import logger from "../helpers/logger.js";
 
 export const bot = new Telegraf(TELEGRAM_BOT_TOKEN);
 
+bot.use(checkGroupChatMiddleware);
 bot.use(userAuthAndSetupMiddleware);
 
 bot.telegram.setMyCommands(commands);

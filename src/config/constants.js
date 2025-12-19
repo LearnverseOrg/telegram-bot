@@ -7,13 +7,7 @@ const __dirname = path.dirname(__filename);
 export const LOG_DIR_PATH = path.join(__dirname, "../../logs");
 
 export const commands = [
-  { command: "start", description: "Start the bot" },
-  {
-    command: "help",
-    description: "Get assistance and learn about the bot's features",
-  },
-  {
-    command: "search",
-    description: "Search and download files by branch and year",
-  },
+  { command: "start", description: "Start bot" },
+  { command: "help", description: "Help" },
+  { command: "search", description: "Search files" },
 ];

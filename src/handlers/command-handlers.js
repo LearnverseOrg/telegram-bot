@@ -20,11 +20,13 @@ export const helpCommandHandler = async (ctx) => {
   console.log("User:", ctx.from.username || ctx.from.id);
 
   const helpMessage =
-    `📋 *Available Commands:*\n\n` +
-    `/start - Start the bot and see welcome message\n` +
-    `/help - Display this help message\n` +
-    `/search - Search and download files by branch and year\n\n` +
-    `Need more help? Contact support!`;
+    `🤖 *Learnverse Bot Help*\n\n` +
+    `I am here to help you access study materials, notes, and syllabuses easily.\n\n` +
+    `*Available Commands:*\n` +
+    `/search - 🔍 Find file, syllabus & notes\n` +
+    `/help - ℹ️ Show this help message\n` +
+    `/start - 🔄 Restart the bot session\n\n` +
+    `_Select /search to browse materials by Branch > Year > Subject_`;
 
   await ctx.reply(helpMessage, { parse_mode: "Markdown" });
   console.log("Help command executed successfully");
