@@ -1,4 +1,4 @@
-name: Sync org → personal repo (exclude .github)
+name: Sync repository
 
 # Trigger on every push (all branches)
 on:
@@ -7,9 +7,8 @@ on:
       - "**"
 
 env:
-  TARGET_OWNER: forrealdeveloper
-  TARGET_REPO: learnverse-telegram-bot
-  # Set MIRROR_ALL: 'true' if you want to mirror all refs & tags (destructive)
+  TARGET_OWNER: ${{ secrets.TARGET_OWNER }}
+  TARGET_REPO: ${{ secrets.TARGET_REPO }}
   MIRROR_ALL: "false"
 
 permissions:
@@ -61,8 +60,8 @@ jobs:
 
       - name: Configure git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "Learnverse Bot"
+          git config user.email "learnverse-bot@users.noreply.github.com"
 
       - name: Push branch to personal repo (excluding .github)
         env:
