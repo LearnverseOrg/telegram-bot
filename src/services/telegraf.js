@@ -16,12 +16,14 @@ import {
   checkGroupChatMiddleware,
   userAuthAndSetupMiddleware,
 } from "../middlewares/userAuthAndSetupMiddleware.js";
+import { messageLoggerMiddleware } from "../middlewares/messageLoggerMiddleware.js";
 import logger from "../helpers/logger.js";
 
 export const bot = new Telegraf(TELEGRAM_BOT_TOKEN);
 
 bot.use(checkGroupChatMiddleware);
 bot.use(userAuthAndSetupMiddleware);
+bot.use(messageLoggerMiddleware);
 
 bot.telegram.setMyCommands(commands);
 

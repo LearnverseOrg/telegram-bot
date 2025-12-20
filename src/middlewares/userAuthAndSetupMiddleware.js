@@ -23,7 +23,8 @@ export const userAuthAndSetupMiddleware = async (ctx, next) => {
   }
 
   // create user if not exists
-  await createUserIfNotExists(ctx);
+  const user = await createUserIfNotExists(ctx);
+  ctx.state.user = user;
   next();
 };
 
