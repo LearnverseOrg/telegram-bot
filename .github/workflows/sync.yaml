@@ -82,7 +82,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No .github files to remove from index; still pushing HEAD (no change)."
           else
-            git commit --amend --no-edit
+            git commit --amend --no-edit --reset-author
           fi
 
           # Force-push the sanitized branch to the target branch on personal repo
