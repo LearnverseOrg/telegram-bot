@@ -1,3 +1,7 @@
+import { Markup } from "telegraf";
+
+const TELEGRAM_GROUP_LINK = "https://t.me/+pqv5-taDH60wNjFl";
+
 export const startCommandHandler = async (ctx) => {
   console.log("=== START COMMAND ===");
   console.log("User:", ctx.from.username || ctx.from.id);
@@ -8,10 +12,15 @@ export const startCommandHandler = async (ctx) => {
     `• 📁 Files & Study Materials\n` +
     `• 📚 Syllabuses & PDFs\n` +
     `• 📝 Notes & Resources\n\n` +
-    `Use /search to find links to files!\n` +
+    `Use /search to find links to files, syllabuses & notes!\n` +
     `Use /help to see all available commands.`;
 
-  await ctx.reply(welcomeMessage, { parse_mode: "Markdown" });
+  await ctx.reply(welcomeMessage, {
+    parse_mode: "Markdown",
+    ...Markup.inlineKeyboard([
+      [Markup.button.url("📢 Join Telegram Group", TELEGRAM_GROUP_LINK)],
+    ]),
+  });
   console.log("Start command executed successfully");
 };
 
@@ -28,7 +37,12 @@ export const helpCommandHandler = async (ctx) => {
     `/start - 🔄 Restart the bot session\n\n` +
     `_Select /search to browse materials by Branch > Year > Subject_`;
 
-  await ctx.reply(helpMessage, { parse_mode: "Markdown" });
+  await ctx.reply(helpMessage, {
+    parse_mode: "Markdown",
+    ...Markup.inlineKeyboard([
+      [Markup.button.url("📢 Join Telegram Group", TELEGRAM_GROUP_LINK)],
+    ]),
+  });
   console.log("Help command executed successfully");
 };
 
