@@ -7,18 +7,16 @@ export const startCommandHandler = async (ctx) => {
   console.log("User:", ctx.from.username || ctx.from.id);
 
   const welcomeMessage =
-    `🎓 *Welcome to Learnverse Bot!*\n\n` +
-    `I can help you access:\n` +
-    `• 📁 Files & Study Materials\n` +
-    `• 📚 Syllabuses & PDFs\n` +
-    `• 📝 Notes & Resources\n\n` +
-    `Use /search to find links to files, syllabuses & notes!\n` +
-    `Use /help to see all available commands.`;
+    `Meow! I'm Luna 🐱\n\n` +
+    `I help students find study materials - notes, PYQs, syllabuses, you name it.\n` +
+    `Everything's organized and ready for you.\n\n` +
+    `Try /search to get started, or /help if you need guidance.\n\n` +
+    `Happy studying!`;
 
   await ctx.reply(welcomeMessage, {
     parse_mode: "Markdown",
     ...Markup.inlineKeyboard([
-      [Markup.button.url("📢 Join Telegram Group", TELEGRAM_GROUP_LINK)],
+      [Markup.button.url("Join Study Group", TELEGRAM_GROUP_LINK)],
     ]),
   });
   console.log("Start command executed successfully");
@@ -29,18 +27,18 @@ export const helpCommandHandler = async (ctx) => {
   console.log("User:", ctx.from.username || ctx.from.id);
 
   const helpMessage =
-    `🤖 *Learnverse Bot Help*\n\n` +
-    `I am here to help you access study materials, notes, and syllabuses easily.\n\n` +
-    `*Available Commands:*\n` +
-    `/search - 🔍 Find file, syllabus & notes links\n` +
-    `/help - ℹ️ Show this help message\n` +
-    `/start - 🔄 Restart the bot session\n\n` +
-    `_Select /search to browse materials by Branch > Year > Subject_`;
+    `Luna here! 🐱\n\n` +
+    `I've organized all your study materials - just tell me what you need.\n\n` +
+    `*Commands:*\n` +
+    `/search - Browse materials by branch, year, and subject\n` +
+    `/help - Show this message\n` +
+    `/start - Start over\n\n` +
+    `Pro tip: Use /search and I'll guide you through everything step by step. `;
 
   await ctx.reply(helpMessage, {
     parse_mode: "Markdown",
     ...Markup.inlineKeyboard([
-      [Markup.button.url("📢 Join Telegram Group", TELEGRAM_GROUP_LINK)],
+      [Markup.button.url("Join Study Group", TELEGRAM_GROUP_LINK)],
     ]),
   });
   console.log("Help command executed successfully");

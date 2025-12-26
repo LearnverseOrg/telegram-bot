@@ -42,7 +42,7 @@ export const searchCommandHandler = async (ctx) => {
     ]);
 
     await ctx.reply(
-      "*🔍 Search Files*\n\nSelect your branch to find study materials and files:",
+      "🐱 *Welcome to Luna's Library!*\n\nSelect your branch so I can fetch the right materials for you:",
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -57,7 +57,7 @@ export const searchCommandHandler = async (ctx) => {
       { error: error.message, stack: error.stack },
       "Error in search command"
     );
-    await ctx.reply("❌ An error occurred. Please try again later.");
+    await ctx.reply("😿 Oops! My paws slipped. Please try again later.");
   }
 };
 
@@ -75,13 +75,13 @@ export const branchSelectionHandler = async (ctx) => {
 
     if (!branchResponse || !branchResponse.success) {
       logger.error({ branchId }, "Failed to fetch branch details");
-      await ctx.reply("❌ Failed to fetch branch details. Please try again.");
+      await ctx.reply("😿 Oops! I couldn't fetch that. Please try again.");
       return;
     }
 
     const branch = branchResponse.data;
     if (!branch) {
-      await ctx.reply("❌ Branch not found. Please try again.");
+      await ctx.reply("😿 Hmm... I can't find that branch. Please try again.");
       return;
     }
 
@@ -114,7 +114,7 @@ export const branchSelectionHandler = async (ctx) => {
 
     await ctx.editMessageText(
       `*🎓 ${branch.name} (${branch.code})*\n\n` +
-        `Select your year to find files:`,
+        `Great choice! Now, which year are you in? 🐾`,
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -128,7 +128,9 @@ export const branchSelectionHandler = async (ctx) => {
       "Error in branch selection"
     );
     await ctx.answerCbQuery("❌ An error occurred");
-    await ctx.reply("❌ An error occurred. Please try again.");
+    await ctx.reply(
+      "😿 Oops! My paws slipped and something went wrong. Please try again."
+    );
   }
 };
 
@@ -160,14 +162,16 @@ export const yearSelectionHandler = async (ctx) => {
 
     if (!yearResponse || !yearResponse.success) {
       logger.error("Failed to fetch year details - no success in response");
-      await ctx.reply("❌ Failed to fetch year details. Please try again.");
+      await ctx.reply(
+        "😿 Oops! I couldn't fetch the year details. Please try again."
+      );
       return;
     }
 
     const year = yearResponse.data;
     if (!year) {
       logger.error("No year data in response");
-      await ctx.reply("❌ Year not found. Please try again.");
+      await ctx.reply("😿 Hmm... I can't find that year. Please try again.");
       return;
     }
 
@@ -209,7 +213,8 @@ export const yearSelectionHandler = async (ctx) => {
     await ctx.editMessageText(
       `*📚 ${year.name || year.code} - ${
         year.branch?.university || "University"
-      }*\n\n` + `Select the pattern to view available files:`,
+      }*\n\n` +
+        `Select the pattern to view available files. I've got them organized! `,
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -222,7 +227,9 @@ export const yearSelectionHandler = async (ctx) => {
     logger.error("Error message:", error.message);
     logger.error("Error stack:", error.stack);
     await ctx.answerCbQuery("❌ An error occurred");
-    await ctx.reply("❌ An error occurred. Please try again.");
+    await ctx.reply(
+      "😿 Oops! My paws slipped and something went wrong. Please try again."
+    );
   } finally {
   }
 };
@@ -255,14 +262,18 @@ export const fileDetailsHandler = async (ctx) => {
 
     if (!syllabusResponse || !syllabusResponse.success) {
       logger.error("Failed to fetch syllabus - no success in response");
-      await ctx.reply("❌ Failed to load subjects. Please try again.");
+      await ctx.reply(
+        "😿 Oops! I couldn't load the subjects. Please try again."
+      );
       return;
     }
 
     const syllabus = syllabusResponse.data;
     if (!syllabus) {
       logger.error("No syllabus data in response");
-      await ctx.reply("❌ Syllabus not found. Please try again.");
+      await ctx.reply(
+        "😿 Hmm... I can't find that syllabus. Please try again."
+      );
       return;
     }
 
@@ -317,7 +328,7 @@ export const fileDetailsHandler = async (ctx) => {
 
     await ctx.editMessageText(
       `*📚 ${yearInfo} - Pattern ${syllabus.patternYear}*\n\n` +
-        `Select a subject to view materials:`,
+        `Here are the subjects I found! Which one do you need? 😺`,
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -330,7 +341,9 @@ export const fileDetailsHandler = async (ctx) => {
     logger.error("Error message:", error.message);
     logger.error("Error stack:", error.stack);
     await ctx.answerCbQuery("❌ An error occurred");
-    await ctx.reply("❌ An error occurred. Please try again.");
+    await ctx.reply(
+      "😿 Oops! My paws slipped and something went wrong. Please try again."
+    );
   } finally {
   }
 };
@@ -369,7 +382,7 @@ export const backToBranchesHandler = async (ctx) => {
     });
 
     await ctx.editMessageText(
-      "*🔍 Search Files*\n\nSelect your branch to find study materials and files:",
+      "🐱 *Welcome to Luna's Library!*\n\nSelect your branch so I can fetch the right materials for you:",
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -413,14 +426,16 @@ export const subjectDetailsHandler = async (ctx) => {
 
     if (!subjectResponse || !subjectResponse.success) {
       logger.error("Failed to fetch subject - no success in response");
-      await ctx.reply("❌ Failed to load materials. Please try again.");
+      await ctx.reply(
+        "😿 Oops! I couldn't load the materials. Please try again."
+      );
       return;
     }
 
     const subject = subjectResponse.data;
     if (!subject) {
       logger.error("No subject data in response");
-      await ctx.reply("❌ Subject not found. Please try again.");
+      await ctx.reply("😿 Hmm... I can't find that subject. Please try again.");
       return;
     }
 
@@ -428,6 +443,7 @@ export const subjectDetailsHandler = async (ctx) => {
     let message = `*📖 ${subject.name}*\n`;
     message += `_Code: ${subject.code}_\n`;
     message += `_Pattern: ${subject.syllabus?.patternYear || "N/A"}_\n\n`;
+    message += `Here's what I found for you! 📚\n\n`;
 
     const baseUrl = `${LEARNVERSE_BASE_URL}/viewer`;
     let hasContent = false;
@@ -517,7 +533,7 @@ export const subjectDetailsHandler = async (ctx) => {
       ],
       [
         {
-          text: "🏠 Start Over",
+          text: " Start Over with Luna",
           callback_data: "back_to_branches",
         },
       ],
@@ -535,7 +551,9 @@ export const subjectDetailsHandler = async (ctx) => {
     logger.error("Error message:", error.message);
     logger.error("Error stack:", error.stack);
     await ctx.answerCbQuery("❌ An error occurred");
-    await ctx.reply("❌ An error occurred. Please try again.");
+    await ctx.reply(
+      "😿 Oops! My paws slipped and something went wrong. Please try again."
+    );
   } finally {
   }
 };

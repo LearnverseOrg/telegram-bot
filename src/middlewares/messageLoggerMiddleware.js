@@ -2,14 +2,14 @@ import Msg from "../models/msg-model.js";
 import logger from "../helpers/logger.js";
 
 export const messageLoggerMiddleware = async (ctx, next) => {
-  // We need the Mongo User ID. It should be in ctx.state.user from previous middleware.
-  // If not, we might be in a context where user auth didn't run or failed (e.g. some public commands?), but usually it runs.
+  // Only log messages from PRIVATE chats, never from groups
+  const isPrivateChat = ctx.chat?.type === "private";
   const mongoUserId = ctx.state.user?._id;
   const chatId = ctx.chat?.id ? String(ctx.chat.id) : null;
 
-  // 1. Log Incoming User Action (Only real messages)
+  // 1. Log Incoming User Action (Only from private chats)
   try {
-    if (mongoUserId && chatId) {
+    if (isPrivateChat && mongoUserId && chatId) {
       if (ctx.message) {
         // Standard User Message
         const content =
@@ -37,7 +37,7 @@ export const messageLoggerMiddleware = async (ctx, next) => {
     logger.error("Error logging incoming message:", err);
   }
 
-  // 2. Wrap Bot Response Methods to Log Outgoing
+  // 2. Wrap Bot Response Methods to Log Outgoing (Only for private chats)
   const originalReply = ctx.reply.bind(ctx);
   const originalEditMessageText = ctx.editMessageText.bind(ctx);
 
@@ -48,8 +48,8 @@ export const messageLoggerMiddleware = async (ctx, next) => {
       const content =
         typeof args[0] === "string" ? args[0] : "[Non-text reply]";
 
-      // Log Bot Message
-      if (message && mongoUserId) {
+      // Log Bot Message (only for private chats)
+      if (message && isPrivateChat && mongoUserId) {
         try {
           await Msg.create({
             userId: mongoUserId,
@@ -75,8 +75,8 @@ export const messageLoggerMiddleware = async (ctx, next) => {
     try {
       const message = await originalEditMessageText(...args);
 
-      // Update the existing message if we tracked it
-      if (message && mongoUserId) {
+      // Update the existing message if we tracked it (only for private chats)
+      if (message && isPrivateChat && mongoUserId) {
         try {
           await Msg.findOneAndUpdate(
             { messageId: message.message_id, chatId: String(message.chat.id) },

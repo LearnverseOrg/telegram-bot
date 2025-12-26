@@ -11,6 +11,7 @@ const LEARNVERSE_BASE_URL = process.env.LEARNVERSE_BASE_URL;
 const LEARNVERSE_API_BASE_URL = process.env.LEARNVERSE_API_BASE_URL;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const TELEGRAM_BOT_BASE_URL = process.env.TELEGRAM_BOT_BASE_URL;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 export {
   PORT,
@@ -21,4 +22,5 @@ export {
   LEARNVERSE_API_BASE_URL,
   NODE_ENV,
   TELEGRAM_BOT_BASE_URL,
+  GEMINI_API_KEY,
 };

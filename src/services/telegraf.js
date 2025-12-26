@@ -10,6 +10,7 @@ import {
   subjectDetailsHandler,
   backToBranchesHandler,
 } from "../handlers/command-handlers.js";
+import { handleTextMessage } from "../handlers/text-message-handler.js";
 
 import { commands } from "../config/constants.js";
 import {
@@ -118,4 +119,9 @@ bot.action(/^back_year_/, async (ctx) => {
     logger.error("Error in back_year handler:", error);
     await ctx.answerCbQuery("❌ An error occurred");
   }
+});
+
+// Handle all text messages for query detection
+bot.on("text", async (ctx) => {
+  await handleTextMessage(ctx);
 });

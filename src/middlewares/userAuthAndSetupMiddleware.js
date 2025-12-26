@@ -17,12 +17,13 @@ export const userAuthAndSetupMiddleware = async (ctx, next) => {
     return;
   }
 
-  // reject if the user is not in a private chat
+  // For group chats, skip user creation but allow processing
   if (!isPrivateChat(ctx)) {
+    next();
     return;
   }
 
-  // create user if not exists
+  // create user if not exists (only for private chats)
   const user = await createUserIfNotExists(ctx);
   ctx.state.user = user;
   next();
@@ -33,9 +34,24 @@ export const checkGroupChatMiddleware = async (ctx, next) => {
 
   if (checkGroupChat(ctx) && checkIfNewUser(ctx)) {
     const privateChatLink = `https://t.me/${BOT_USERNAME}`;
-    const message = `Welcome to the group! For any study materials, you can use our bot directly: <a href="${privateChatLink}">Start Private Chat with Learnerse Bot</a>`;
-    ctx.reply(message, { parse_mode: "HTML" });
+    await ctx.replyWithHTML(
+      `Welcome! I'm Luna 🐱 - if you need study materials, chat with me privately and I'll help you find everything. <a href="${privateChatLink}">Talk to Luna</a>`
+    );
     return;
   }
+
+  // Allow text messages in groups to pass through for query detection
+  // But skip command processing in groups (commands only work in private chat)
+  if (checkGroupChat(ctx)) {
+    if (ctx.message?.text && !ctx.message.text.startsWith("/")) {
+      // Let text messages through for query detection
+      next();
+      return;
+    }
+    // Block commands and other interactions in groups
+    return;
+  }
+
+  // For private chats, always continue
   next();
 };
