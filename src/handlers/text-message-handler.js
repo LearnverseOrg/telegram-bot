@@ -108,9 +108,9 @@ export async function handleTextMessage(ctx) {
           if (isGroupChat) {
             // Group Chat: Only respond to queries
             responseMessage =
-              `Meow! I can help with that, ${username}\n\n` +
+              `Hey! I can help with that, ${username}\n\n` +
               `Chat with me privately and I'll find what you need:\n` +
-              `🐱 [Talk to Luna](${privateChatLink})\n` +
+              `🤖 [Talk to LearnverseBot](${privateChatLink})\n` +
               `📚 [Browse web](${LEARNVERSE_BASE_URL})`;
 
             replyMarkup = {
@@ -119,12 +119,12 @@ export async function handleTextMessage(ctx) {
               reply_to_message_id: ctx.message.message_id,
             };
           } else {
-            // Private Chat: Respond to everything with Luna's personality
+            // Private Chat: Respond to everything with LearnverseBot's personality
 
             // Standard helpful response
             responseMessage =
-              `Meow! Luna here! 🐈\n\n` +
-              `I'm your classy study companion (and an orange cat! ✨).\n` +
+              `Hey! LearnverseBot here! \n\n` +
+              `I'm your study companion!\n` +
               `I'm here to provide study materials.\n\n` +
               `*How I can help:*\n` +
               `/search - Browse my organized library 📚\n` +
@@ -160,7 +160,7 @@ export async function handleTextMessage(ctx) {
           // Only send rate limit message in private chats to avoid spamming groups
           if (!isGroupChat) {
             const funRateLimitMsg =
-              `Meow! 😿 Hold on! It's my lunch time 🐟 (I'm eating fish).\n` +
+              `Hey! 😅 Hold on! I'm taking a quick break.\n` +
               `Please wait a moment, I'll be back soon! `;
             await ctx.reply(funRateLimitMsg);
           }

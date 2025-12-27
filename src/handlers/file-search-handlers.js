@@ -42,7 +42,7 @@ export const searchCommandHandler = async (ctx) => {
     ]);
 
     await ctx.reply(
-      "🐱 *Welcome to Luna's Library!*\n\nSelect your branch so I can fetch the right materials for you:",
+      "🤖 *Welcome to LearnverseBot's Library!*\n\nSelect your branch so I can fetch the right materials for you:",
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -382,7 +382,7 @@ export const backToBranchesHandler = async (ctx) => {
     });
 
     await ctx.editMessageText(
-      "🐱 *Welcome to Luna's Library!*\n\nSelect your branch so I can fetch the right materials for you:",
+      "🤖 *Welcome to LearnverseBot's Library!*\n\nSelect your branch so I can fetch the right materials for you:",
       {
         reply_markup: {
           inline_keyboard: inlineKeyboard,
@@ -533,7 +533,7 @@ export const subjectDetailsHandler = async (ctx) => {
       ],
       [
         {
-          text: " Start Over with Luna",
+          text: "🔄 Start Over with LearnverseBot",
           callback_data: "back_to_branches",
         },
       ],

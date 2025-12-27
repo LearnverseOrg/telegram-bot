@@ -7,7 +7,7 @@ export const startCommandHandler = async (ctx) => {
   console.log("User:", ctx.from.username || ctx.from.id);
 
   const welcomeMessage =
-    `Meow! I'm Luna 🐱\n\n` +
+    `Hey! I'm LearnverseBot \n\n` +
     `I help students find study materials - notes, PYQs, syllabuses, you name it.\n` +
     `Everything's organized and ready for you.\n\n` +
     `Try /search to get started, or /help if you need guidance.\n\n` +
@@ -27,7 +27,7 @@ export const helpCommandHandler = async (ctx) => {
   console.log("User:", ctx.from.username || ctx.from.id);
 
   const helpMessage =
-    `Luna here! 🐱\n\n` +
+    `LearnverseBot here! \n\n` +
     `I've organized all your study materials - just tell me what you need.\n\n` +
     `*Commands:*\n` +
     `/search - Browse materials by branch, year, and subject\n` +
