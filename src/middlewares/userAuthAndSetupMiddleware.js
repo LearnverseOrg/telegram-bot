@@ -34,9 +34,6 @@ export const checkGroupChatMiddleware = async (ctx, next) => {
 
   if (checkGroupChat(ctx) && checkIfNewUser(ctx)) {
     const privateChatLink = `https://t.me/${BOT_USERNAME}`;
-    await ctx.replyWithHTML(
-      `Welcome! I'm LearnverseBot - if you need study materials, chat with me privately and I'll help you find everything. <a href="${privateChatLink}">Talk to LearnverseBot</a>`
-    );
     return;
   }
 
